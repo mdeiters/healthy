@@ -2,117 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"> 
   <head> 
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
-  <style>
-    body {
-      font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Arial, Helvetica, sans-serif;
-    }
-
-    #main {
-      width: 800px;
-      margin: auto;
-    	background: #fff;
-    	-webkit-border-radius: 15px;
-    	-moz-border-radius: 15px;
-      border-radius: 15px;
-    }
-
-    p{
-      margin: 0;
-      padding: 0;
-      text-align: center;
-      color: #85813B;	
-    }
-
-    h1 { 
-      margin: 0px;
-      margin-top: 50px;
-    	font-size: 24px;
-    	text-align: center;
-      font-weight: bold;
-      color: #fff;
-    	}
-    h4 {
-      margin: 5px 0px 0px 0px;
-    	text-align: center;
-      font-weight: bold;
-      color: #fff;
-      font-size: 12px;
-    }
-
-    h2 { 
-    	margin: 0px;
-      padding: 0px;
-    	font-size: 18px;
-    	font-weight: bold;
-      text-align: left;
-      display: inline;
-    }
-
-    h3 {
-    	margin: 0px;
-      padding: 0px;
-    	font-size: 14px;
-    	font-weight: bold;
-      text-align: left;
-    }
-    
-    ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      padding-bottom: 20px;
-    }
-    
-    li {
-      padding: 20px 20px 0px 20px;
-    } 
-    
-    li a {
-      float: right;
-    }
-    
-    .status{
-      width: 100px;
-      height: 20px;
-      text-align: center;
-      font-size: 60%;
-      line-height: 20px;
-      float: left;
-      margin-right:20px;
-    }
-    
-    .pass{
-      background:#6DAF2D;
-    }
-    
-    .fail{
-      background:#C52D08;
-    }
-  
-    .warn{
-      background:#EBC809;
-    }
-    
-    .info{
-      clear:both;
-      display:none;
-      border-bottom: 1px solid;
-      margin-top: 5px;
-      margin-bottom: 5px;
-      padding: 5px;
-      font-size: 12px;
-    }
-    
-    .close{
-      display:none;
-      padding-right: 10px;
-    }
-    
-    #headers{
-      display: none;
-    }
-    
-  </style>
+  <link rel='stylesheet' href='<%= url_for("screen.css") %>' type='text/css' media='screen' />
   <title>Status : <%= HealthStatus::Diagnostic.status.to_s.upcase %></title>  
   </head>  
   <body class="<%= HealthStatus::Diagnostic.status %>"> 
@@ -126,9 +16,9 @@
               <%= check.name %>
             </h2>
             <% if check.respond_to?(:info) %>
-              <a href="<%= url_for(check.normalized_name) %>" class='remote'>run</a>
+              <a href="<%= url_for(check.normalized_name) %>" class='remote button'><span>run</span></a>
             <% end %>
-            <a href="#" class='close' onclick="$(this).hide().siblings('.info').slideUp(); return false;">close</a>
+            <a href="#" class='close button hide' onclick="$(this).hide().siblings('.info').slideUp(); return false;"><span>close</span></a>
             <div class='info'></div>
           </li>
         <% end %>
@@ -140,8 +30,8 @@
               <div class="status"></div>
               <%= check.name %>
             </h2>
-            <a href="<%= url_for(check.normalized_name) %>" class='remote'>run</a>
-            <a href="#" class='close' onclick="$(this).hide().siblings('.info').slideUp(); return false;">close</a>
+            <a href="<%= url_for(check.normalized_name) %>" class='remote button'><span>run</span></a>
+            <a href="#" class='close button hide' onclick="$(this).hide().siblings('.info').slideUp(); return false;"><span>close</span></a>
             <div class='info'></div>
           </li>
         <% end %>
@@ -185,9 +75,9 @@
   	    var info  = $(this).siblings('.info');
   	    $.get($(this).attr('href'), function(data){
           info.html(eval(data)).slideDown();
-  	      close.text('hide');
+  	      close.children('span').text('hide');
   	    });
-  	    close.show().text('(processing)');
+  	    close.show().children('span').text('(processing)');
   	    return false;
   	  });
   	  
