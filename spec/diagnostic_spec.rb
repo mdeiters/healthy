@@ -69,6 +69,14 @@ module HealthStatus
         test_instance.handles?('Test Farm Diagnostic+standalone')
         test_instance.info.should == "amdc-lamp-lx10.amdc.mckinsey.com\ntesting"
       end
+      
+      it 'should not conflict when to different classes configure run_on' do
+        test_one = Class.new(Diagnostic::FarmFriendly) 
+        test_one.run_on = 'one'
+        test_two = Class.new(Diagnostic::FarmFriendly) 
+        test_two.run_on = 'two'
+        test_two.run_on.should_not == test_one.run_on
+      end
     
     end
   

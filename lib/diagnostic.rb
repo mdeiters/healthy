@@ -30,10 +30,13 @@ module HealthStatus
   
     class FarmFriendly < Base
       attr_reader :originator_of_request
-      # cattr_accessor :run_on
-      # cattr_accessor :site_host
-      class << self
-        attr_accessor :run_on, :site_host
+
+      def self.run_on
+        @run_on
+      end
+      
+      def self.run_on=(value)
+        @run_on=value
       end
 
       def handles?(name)
@@ -110,6 +113,14 @@ module HealthStatus
     
       def servers=(arg)
         @@servers = arg
+      end
+      
+      def site_host
+        @@site_host
+      end
+      
+      def site_host=(value)
+        @@site_host=value
       end
     
       def current_server
