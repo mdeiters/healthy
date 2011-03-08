@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+  <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+  <style>
+    body {
+      font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    }
+
+    #main {
+      width: 800px;
+      margin: auto;
+    	background: #fff;
+    	-webkit-border-radius: 15px;
+    	-moz-border-radius: 15px;
+      border-radius: 15px;
+    }
+
+    p{
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      color: #85813B;	
+    }
+
+    h1 { 
+      margin: 0px;
+      margin-top: 50px;
+    	font-size: 24px;
+    	text-align: center;
+      font-weight: bold;
+      color: #fff;
+    	}
+    h4 {
+      margin: 5px 0px 0px 0px;
+    	text-align: center;
+      font-weight: bold;
+      color: #fff;
+      font-size: 12px;
+    }
+
+    h2 { 
+    	margin: 0px;
+      padding: 0px;
+    	font-size: 18px;
+    	font-weight: bold;
+      text-align: left;
+      display: inline;
+    }
+
+    h3 {
+    	margin: 0px;
+      padding: 0px;
+    	font-size: 14px;
+    	font-weight: bold;
+      text-align: left;
+    }
+    
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      padding-bottom: 20px;
+    }
+    
+    li {
+      padding: 20px 20px 0px 20px;
+    } 
+    
+    li a {
+      float: right;
+    }
+    
+    .status{
+      width: 100px;
+      height: 20px;
+      text-align: center;
+      font-size: 60%;
+      line-height: 20px;
+      float: left;
+      margin-right:20px;
+    }
+    
+    .pass{
+      background:#6DAF2D;
+    }
+    
+    .fail{
+      background:#C52D08;
+    }
+  
+    .warn{
+      background:#EBC809;
+    }
+    
+    .info{
+      clear:both;
+      display:none;
+      border-bottom: 1px solid;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      padding: 5px;
+      font-size: 12px;
+    }
+    
+    .close{
+      display:none;
+      padding-right: 10px;
+    }
+    
+    #headers{
+      display: none;
+    }
+    
+  </style>
+  <title>Status : <%= HealthStatus::Diagnostic.status.to_s.upcase %></title>  
+  </head>  
+  <body class="<%= HealthStatus::Diagnostic.status %>"> 
+    <h1><%= HealthStatus::Diagnostic.status.to_s.upcase %></h1>
+    <div id="main"> 
+      <ul>
+        <% @checks.each do |check| %>
+          <li id="<%= check.normalized_name %>">
+            <h2>
+              <div class="status <%= check.status %>"><%= check.status.to_s.upcase %></div>
+              <%= check.name %>
+            </h2>
+            <% if check.respond_to?(:info) %>
+              <a href="<%= url_for(check.normalized_name) %>" class='remote'>run</a>
+            <% end %>
+            <a href="#" class='close' onclick="$(this).hide().siblings('.info').slideUp(); return false;">close</a>
+            <div class='info'></div>
+          </li>
+        <% end %>
+      </ul>
+      <ul id='tools'>
+        <% @tools.each do |check| %>
+          <li id="<%=check.normalized_name %>">
+            <h2>
+              <div class="status"></div>
+              <%= check.name %>
+            </h2>
+            <a href="<%= url_for(check.normalized_name) %>" class='remote'>run</a>
+            <a href="#" class='close' onclick="$(this).hide().siblings('.info').slideUp(); return false;">close</a>
+            <div class='info'></div>
+          </li>
+        <% end %>
+      </ul>
+      
+    </div>
+    <h4 id="refresh-msg"></h4>
+    <h5>
+      <%= HealthStatus::Diagnostic.current_server %>
+      <a href='#headers' onclick="$('#headers').toggle(); return false;">(show headers)</a>
+    </h5>
+    <div id='headers'><h6><%= request.env.keys.sort.collect{|n| "#{n} = #{request.env[n]}" }.join('<br>') %></h6></div>
+  </body>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script> 
+  <script type="text/JavaScript">
+    var pause = false;
+    
+    function reload(){
+      if(!pause) location.reload(true);
+    }
+    
+    function updateRefreshMessage(){
+      var element = document.getElementById('refresh-msg');
+      if(pause){
+        element.innerHTML = 'page refresh disabled'
+        return true;
+      }
+
+      var seconds = parseInt(element.innerHTML.replace(/\D/g,''));
+      if(isNaN(seconds))
+        element.innerHTML = "The page will refresh in 30 seconds";
+      else
+        element.innerHTML = "The page will refresh in " + (seconds - 1) + " seconds";
+    	setTimeout('updateRefreshMessage();', 1000);      
+    }
+  	
+  	$(document).ready(function(){
+  	  $('a.remote').bind('click', function(){
+  	    pause = true;
+  	    var close = $(this).siblings('.close');
+  	    var info  = $(this).siblings('.info');
+  	    $.get($(this).attr('href'), function(data){
+          info.html(eval(data)).slideDown();
+  	      close.text('hide');
+  	    });
+  	    close.show().text('(processing)');
+  	    return false;
+  	  });
+  	  
+  	  updateRefreshMessage();
+    	setTimeout("reload();", 30 * 1000);  
+  	});
+  </script>
+</html>

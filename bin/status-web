@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + '/../lib')
+begin
+  require 'vegas'
+rescue LoadError
+  require 'rubygems'
+  require 'vegas'
+end  
+require 'activesupport'
+require 'health-status'
+
+Vegas::Runner.new(HealthStatus::Server, 'status-web', {}) do |runner, opts, app|
+
+end
