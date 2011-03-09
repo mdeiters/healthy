@@ -15,10 +15,10 @@ Jeweler::Tasks.new do |gem|
   gem.name = "healthy"
   gem.homepage = "http://github.com/mdeiters/healthy"
   gem.license = "MIT"
-  gem.summary = %Q{Enables apps to have a status or diagnostics page}
-  gem.description = %Q{Enables apps to have a status or diagnostics page}
+  gem.summary = %Q{A rack app for monitoring application health that can be attached to your rails application}
+  gem.description = %Q{A rack app for monitoring application health that can be attached to your rails application}
   gem.email = "mdeiters@gmail.com"
-  gem.authors = ["mdeiters"]
+  gem.authors = ["Matthew Deiters"]
   gem.add_runtime_dependency 'sinatra'
   gem.add_development_dependency 'rspec', '> 1.2.3'
 end
