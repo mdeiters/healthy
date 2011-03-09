@@ -144,3 +144,11 @@ a.button:active span {
 .hide {
   display: none;
 }
+
+.left{
+  float: left;
+}
+
+.right{
+  float: right;
+}
