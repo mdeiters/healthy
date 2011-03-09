@@ -4,7 +4,7 @@ Coming Soon
 
 == Mounting the application in rails 2.3.*
 
-  Create a new folder in app called metal. Add the file healthy_web.rb with:
+Create a new folder in app called metal. Add the file healthy_web.rb with:
   
   require 'healthy'
   class HealthyWeb
@@ -19,11 +19,11 @@ Coming Soon
     end
   end
   
-  This will route all requests to /status to the healthy rack app
+This will route all requests to /status to the healthy rack app
 
 == Adding custom diagnostics
 
-  Add each diagnostics check to the to
+Add each diagnostics check to the to
 
   config.to_prepare do
     Healthy::Diagnostic.monitor(YourSuperDuperDiagnosticsCheck)
