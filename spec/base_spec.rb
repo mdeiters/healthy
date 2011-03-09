@@ -1,6 +1,6 @@
 require 'spec/spec_helper'
 
-module HealthStatus  
+module Healthy
 
   describe Diagnostic::Base do
     it 'returns a status of :pass if a diagnostic indicates passed? and there are no warnings' do

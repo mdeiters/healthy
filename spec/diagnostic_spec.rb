@@ -1,6 +1,6 @@
 require 'spec/spec_helper'
 
-module HealthStatus  
+module Healthy
   describe Diagnostic do
     before :each do
       Diagnostic.flush_diagnostics!
@@ -39,6 +39,13 @@ module HealthStatus
       Diagnostic.monitor(test_check_class)
       Diagnostic.find('test123').should be_instance_of(test_check_class)
     end
-
+    
+    it 'should only have one instance of diagnostic even if multiple exsist so development autoreloading works' do
+      test_check_class = Class.new(Diagnostic::Base)
+      Diagnostic.monitor(test_check_class)
+      Diagnostic.monitor(test_check_class)
+      loaded_diagnostics = Diagnostic.instance_variable_get("@diagnostics")
+      loaded_diagnostics.uniq.should == loaded_diagnostics
+    end
   end
 end

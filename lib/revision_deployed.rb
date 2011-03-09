@@ -1,4 +1,4 @@
-module HealthStatus
+module Healthy
     class RevisionDeployed < Diagnostic::DistributedBase
     def name
       'Subversion Revision'

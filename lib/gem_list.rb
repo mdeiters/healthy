@@ -1,4 +1,4 @@
-module HealthStatus
+module Healthy
   class GemList < Diagnostic::DistributedBase
     def name
       'Installed Ruby And Gems'

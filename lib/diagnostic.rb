@@ -1,4 +1,4 @@
-module HealthStatus
+module Healthy
   class Diagnostic  
     class << self    
       def normalize_name(name)
@@ -49,7 +49,10 @@ module HealthStatus
       end
     
       def monitor(diagnostic)
-        (@diagnostics ||= []) << diagnostic
+        @diagnostics ||= []
+        exsisting = @diagnostics.detect{|exsisting| exsisting.name == diagnostic.name }
+        @diagnostics.delete(exsisting) if exsisting
+        @diagnostics << diagnostic
       end
     
       def diagnostics

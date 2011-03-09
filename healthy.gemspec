@@ -4,7 +4,7 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{health-status}
+  s.name = %q{healthy}
   s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
@@ -24,17 +24,17 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION",
-    "lib/health-status.rb",
-    "spec/health-status_spec.rb",
+    "lib/healthy.rb",
+    "spec/healthy_spec.rb",
     "spec/spec_helper.rb"
   ]
-  s.homepage = %q{http://github.com/mdeiters/health-status}
+  s.homepage = %q{http://github.com/mdeiters/healthy}
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.6}
   s.summary = %q{Enables apps to have a status or diagnostics page}
   s.test_files = [
-    "spec/health-status_spec.rb",
+    "spec/healthy_spec.rb",
     "spec/spec_helper.rb"
   ]
 

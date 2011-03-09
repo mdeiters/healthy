@@ -1,4 +1,4 @@
-module HealthStatus
+module Healthy
   class Diagnostic
     class DistributedBase < Base
       attr_reader :originator_of_request
@@ -13,8 +13,12 @@ module HealthStatus
 
       def handles?(name)
         name_match = Diagnostic.normalize_name(name).include?(normalized_name)
-        @originator_of_request = true if name_match && !name.include?('+standalone')
+        @originator_of_request = true if name_match && !name.include?('+remote')
         return name_match
+      end
+
+      def remote_server_info(server)
+        `curl -H 'Host: #{Diagnostic.site_host}' http://#{server}/status?info=#{normalized_name}+remote`
       end
 
       def ask_other_servers?
@@ -42,10 +46,6 @@ module HealthStatus
           end
         end
         response
-      end
-
-      def remote_server_info(server)
-        `curl -H 'Host: #{Diagnostic.site_host}' http://#{server}/status?info=#{normalized_name}+standalone`
       end
 
       def server_info

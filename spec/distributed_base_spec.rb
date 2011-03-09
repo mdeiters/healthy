@@ -1,6 +1,6 @@
 require 'spec/spec_helper'
 
-module HealthStatus  
+module Healthy
 
   describe Diagnostic::DistributedBase do
 
@@ -26,7 +26,7 @@ module HealthStatus
       response.should include("amdc-lamp-lx12.amdc.mckinsey.com\nother server test")
     end
   
-    it "should perform server_info only on the current server if name contains 'standalone' because another check originated the request" do
+    it "should perform server_info only on the current server if name contains 'remote' because another check originated the request" do
       test_instance = Class.new(Diagnostic::DistributedBase) do
         def name
           'Test Farm Diagnostic'

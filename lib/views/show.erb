@@ -3,10 +3,10 @@
   <head> 
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
   <link rel='stylesheet' href='<%= url_for("screen.css") %>' type='text/css' media='screen' />
-  <title>Status : <%= HealthStatus::Diagnostic.status.to_s.upcase %></title>  
+  <title>Status : <%= Healthy::Diagnostic.status.to_s.upcase %></title>  
   </head>  
-  <body class="<%= HealthStatus::Diagnostic.status %>"> 
-    <h1><%= HealthStatus::Diagnostic.status.to_s.upcase %></h1>
+  <body class="<%= Healthy::Diagnostic.status %>"> 
+    <h1><%= Healthy::Diagnostic.status.to_s.upcase %></h1>
     <div id="main"> 
       <ul>
         <% @checks.each do |check| %>
@@ -39,7 +39,7 @@
       
     <h4 id="refresh-msg" class='left'></h4>
     <h4 class='right'>
-      <%= HealthStatus::Diagnostic.current_server %>
+      <%= Healthy::Diagnostic.current_server %>
       <a href='#headers' onclick="$('#headers').toggle(); return false;">(show headers)</a>
     </h4>
     <div id='headers'><h6><%= request.env.keys.sort.collect{|n| "#{n} = #{request.env[n]}" }.join('<br>') %></h6></div>

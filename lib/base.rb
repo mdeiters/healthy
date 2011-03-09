@@ -1,4 +1,4 @@
-module HealthStatus
+module Healthy
   class Diagnostic
     # all checks are expected to implement methods passed?, warning?, info
     # all tools are expected to implement methods info

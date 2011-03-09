@@ -8,8 +8,8 @@ rescue LoadError
   require 'vegas'
 end  
 require 'activesupport'
-require 'health-status'
+require 'healthy'
 
-Vegas::Runner.new(HealthStatus::Server, 'status-web', {}) do |runner, opts, app|
+Vegas::Runner.new(Healthy::Server, 'healthy-web', {}) do |runner, opts, app|
 
 end
