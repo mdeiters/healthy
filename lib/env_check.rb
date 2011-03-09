@@ -1,5 +1,5 @@
 module HealthStatus
-  class EnvCheck < Diagnostic::FarmFriendly
+  class EnvCheck < Diagnostic::DistributedBase
     def name
       'Environment'
     end

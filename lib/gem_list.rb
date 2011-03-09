@@ -1,5 +1,5 @@
 module HealthStatus
-  class GemList < Diagnostic::FarmFriendly
+  class GemList < Diagnostic::DistributedBase
     def name
       'Installed Ruby And Gems'
     end

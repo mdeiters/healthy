@@ -1,5 +1,5 @@
 module HealthStatus
-    class RevisionDeployed < Diagnostic::FarmFriendly
+    class RevisionDeployed < Diagnostic::DistributedBase
     def name
       'Subversion Revision'
     end

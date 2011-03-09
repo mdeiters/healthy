@@ -1,5 +1,5 @@
 module HealthStatus
-  class DiskSpace < Diagnostic::FarmFriendly
+  class DiskSpace < Diagnostic::DistributedBase
     def name
       'Disk Space'
     end
