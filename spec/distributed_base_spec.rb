@@ -36,7 +36,7 @@ module Healthy
           'testing'
         end
       end.new
-      test_instance.handles?('Test Farm Diagnostic+standalone')
+      test_instance.handles?('Test Farm Diagnostic+remote')
       test_instance.info.should == "amdc-lamp-lx10.amdc.mckinsey.com\ntesting"
     end
   
