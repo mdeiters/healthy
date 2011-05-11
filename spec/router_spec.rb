@@ -9,7 +9,6 @@ class DuchampCheck
   end
 end
 
-
 module Healthy
   describe Router do
     before(:all) do

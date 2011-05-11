@@ -74,7 +74,7 @@
   	    var close = $(this).siblings('.close');
   	    var info  = $(this).siblings('.info');
   	    $.get($(this).attr('href'), function(data){
-          info.html(eval(data)).slideDown();
+          info.html(data).slideDown();
   	      close.children('span').text('hide');
   	    });
   	    close.show().children('span').text('(processing)');

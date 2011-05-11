@@ -96,6 +96,7 @@ li a {
   margin-bottom: 5px;
   padding: 5px;
   font-size: 12px;
+  white-space:pre;
 }
 
 .close{
