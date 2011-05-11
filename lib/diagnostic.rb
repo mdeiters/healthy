@@ -1,12 +1,12 @@
 module Healthy
   class Diagnostic  
-    class << self    
+    class << self
       def info_for(normalized_name)
         route = Router.routes[normalized_name]
         if ServerIdentity.matches?(route[:servers])
-          route[:klass].info
+          route[:klass].new.info
         else
-          `curl -H 'Host: #{Diagnostic.site_host}' http://#{route[:servers].first}/status?info=#{normalized_name}`
+          `curl -H 'Host: #{Diagnostic.site_host}' http://#{route[:servers].first}/status/#{normalized_name}`
         end
       end
     

@@ -4,7 +4,7 @@ class WarholCheck
 end
 
 class DuchampCheck
-  def name
+  def self.display_name
     "Moustache Check"
   end
 end

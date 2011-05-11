@@ -19,8 +19,7 @@ module Healthy
       end
       
       def normalized_name(klass)
-        instance = klass.new
-        name = instance.respond_to?(:name) ? instance.name : klass.name
+        name = klass.respond_to?(:display_name) ? klass.display_name : klass.name
         name.downcase.gsub(" ", "")
       end
     end

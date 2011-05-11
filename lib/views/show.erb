@@ -10,13 +10,14 @@
     <div id="main"> 
       <ul>
         <% @checks.each do |check| %>
-          <li id="<%= check.normalized_name %>">
+          <% normalized_name = Healthy::Router.normalized_name(check.class) %>
+          <li id="<%= normalized_name %>">
             <h2>
               <div class="status <%= check.status %>"><%= check.status.to_s.upcase %></div>
-              <%= check.name %>
+              <%= display_name(check) %>
             </h2>
             <% if check.respond_to?(:info) %>
-              <a href="<%= url_for(check.normalized_name) %>" class='remote button'><span>run</span></a>
+              <a href="<%= url_for(normalized_name) %>" class='remote button'><span>run</span></a>
             <% end %>
             <a href="#" class='close button hide' onclick="$(this).hide().siblings('.info').slideUp(); return false;"><span>close</span></a>
             <div class='info'></div>
@@ -25,12 +26,13 @@
       </ul>
       <ul id='tools'>
         <% @tools.each do |check| %>
-          <li id="<%=check.normalized_name %>">
+          <% normalized_name = Healthy::Router.normalized_name(check.class) %>
+          <li id="<%=normalized_name %>">
             <h2>
               <div class="status"></div>
-              <%= check.name %>
+              <%= display_name(check) %>
             </h2>
-            <a href="<%= url_for(check.normalized_name) %>" class='remote button'><span>run</span></a>
+            <a href="<%= url_for(normalized_name) %>" class='remote button'><span>run</span></a>
             <a href="#" class='close button hide' onclick="$(this).hide().siblings('.info').slideUp(); return false;"><span>close</span></a>
             <div class='info'></div>
           </li>
@@ -39,7 +41,7 @@
       
     <h4 id="refresh-msg" class='left'></h4>
     <h4 class='right'>
-      <%= Healthy::Diagnostic.current_server %>
+      <%= Healthy::ServerIdentity.identity %>
       <a href='#headers' onclick="$('#headers').toggle(); return false;">(show headers)</a>
     </h4>
     <div id='headers'><h6><%= request.env.keys.sort.collect{|n| "#{n} = #{request.env[n]}" }.join('<br>') %></h6></div>

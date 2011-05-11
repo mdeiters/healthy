@@ -28,7 +28,13 @@ module Healthy
     helpers do
       def url_for(path)
         "#{request.env['SCRIPT_NAME']}/#{path}"
-      end      
+      end
+      
+      def display_name(check)
+        klass = check.class
+        klass.respond_to?(:display_name) ? klass.display_name : klass.name
+      end
+      
     end
   end
 end
