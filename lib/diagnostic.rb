@@ -1,39 +1,33 @@
 module Healthy
   class Diagnostic  
     class << self    
-      def normalize_name(name)
-        name.gsub(' ', '').downcase
+      def info_for(normalized_name)
+        route = Router.routes[normalized_name]
+        if ServerIdentity.matches?(route[:servers])
+          route[:klass].info
+        else
+          `curl -H 'Host: #{Diagnostic.site_host}' http://#{route[:servers].first}/status?info=#{normalized_name}`
+        end
       end
     
       def status
-        statuses = checks.collect(&:status).uniq
-        return :fail if statuses.include?(:fail)
-        return :warn if statuses.include?(:warn)
-        return :pass
+        status = :pass
+        checks.each do |check| 
+          case check.status
+          when :warn
+            status = warn
+          when :fail
+            return :fail
+          end
+        end
+          
+        status
       end
     
       def all_good?
         status == :pass
       end
-    
-      def find(name)
-        diagnostics.select do |check| 
-          if check.respond_to?(:handles?)
-            check.handles?(name) 
-          else
-            Diagnostic.normalize_name(check.class.name) == Diagnostic.normalize_name(name)
-          end
-        end.first
-      end
-    
-      def servers
-        (@@servers ||= [])
-      end
-    
-      def servers=(arg)
-        @@servers = arg
-      end
-      
+              
       def site_host
         @@site_host
       end
@@ -42,17 +36,12 @@ module Healthy
         @@site_host=value
       end
     
-      def current_server
-        fqdn = `hostname --fqdn`.strip
-        fqdn = `hostname`.strip if fqdn == ''
-        fqdn
-      end
-    
       def monitor(diagnostic)
         @diagnostics ||= []
         exsisting = @diagnostics.detect{|exsisting| exsisting.name == diagnostic.name }
         @diagnostics.delete(exsisting) if exsisting
         @diagnostics << diagnostic
+        Router.add_route(diagnostic)
       end
     
       def diagnostics
@@ -61,6 +50,7 @@ module Healthy
     
       def flush_diagnostics!
         @diagnostics.uniq.clear
+        Router.routes = nil
       end
     
       def checks

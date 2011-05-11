@@ -1,5 +1,5 @@
 module Healthy
-  class DiskSpace < Diagnostic::DistributedBase
+  class DiskSpace
     def name
       'Disk Space'
     end

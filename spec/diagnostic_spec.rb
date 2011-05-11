@@ -6,15 +6,6 @@ module Healthy
       Diagnostic.flush_diagnostics!
     end
   
-    it 'should indicate current server' do
-      Diagnostic.current_server.should_not == ''
-    end
-  
-    it 'supports configuring servers' do
-      Diagnostic.servers << 'amdc-lamp-lx12.amdc.mckinsey.com'
-      Diagnostic.servers.should include('amdc-lamp-lx12.amdc.mckinsey.com')
-    end
-  
     it 'considers tools as anything in diagnostic array that does not have the passed? method but has info' do
       test_tool_class = Class.new do
         def info; end
@@ -32,16 +23,12 @@ module Healthy
       Diagnostic.checks.first.should be_instance_of(test_check_class)
     end
   
-    it 'finds diagnostics by name if no handle method is implemented and the class inherits Diagnostic base' do
-      test_check_class = Class.new(Diagnostic::Base) do
-        def name; 'test123'; end
-      end
-      Diagnostic.monitor(test_check_class)
-      Diagnostic.find('test123').should be_instance_of(test_check_class)
-    end
     
     it 'should only have one instance of diagnostic even if multiple exsist so development autoreloading works' do
-      test_check_class = Class.new(Diagnostic::Base)
+      test_check_class = Class.new(Object)
+      test_check_class.class_eval do
+        include Diagnostic::Base
+      end
       Diagnostic.monitor(test_check_class)
       Diagnostic.monitor(test_check_class)
       loaded_diagnostics = Diagnostic.instance_variable_get("@diagnostics")

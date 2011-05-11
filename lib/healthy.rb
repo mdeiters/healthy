@@ -1,10 +1,11 @@
 DIAGNOSTIC_LOGGER = defined?(Rails) ? Rails.logger : require('logger') && Logger.new($stdout)
 
 require 'diagnostic'
+require 'base'
 require 'sinatra'
 require 'server'
-require 'base'
-require 'distributed_base'
+require 'server_identity'
+require 'router'
 require('gem_list')          && Healthy::Diagnostic.monitor(Healthy::GemList)  
 require('env_check')         && Healthy::Diagnostic.monitor(Healthy::EnvCheck)  
 require('disk_space')        && Healthy::Diagnostic.monitor(Healthy::DiskSpace)

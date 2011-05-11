@@ -14,7 +14,7 @@ module Healthy
 
     get '/up.txt' do
       content_type 'text/plain'
-      if Diagnostic.all_good?
+      if Healthy::Diagnostic.all_good?
         return halt(200, 'PASS')
       else
         return halt(500, 'FAIL')
@@ -22,9 +22,7 @@ module Healthy
     end
     
     get '/:info' do
-      dom_name = Diagnostic.normalize_name(params[:info])
-      check    = Diagnostic.find(dom_name) 
-      check.htmlized_info.to_json
+      Healthy::Diagnostic.info_for(params[:info])
     end
 
     helpers do

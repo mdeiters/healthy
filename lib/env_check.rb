@@ -1,5 +1,5 @@
 module Healthy
-  class EnvCheck < Diagnostic::DistributedBase
+  class EnvCheck
     def name
       'Environment'
     end

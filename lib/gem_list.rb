@@ -1,5 +1,5 @@
 module Healthy
-  class GemList < Diagnostic::DistributedBase
+  class GemList
     def name
       'Installed Ruby And Gems'
     end
