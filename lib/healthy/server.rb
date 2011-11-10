@@ -2,9 +2,9 @@ module Healthy
   class Server < Sinatra::Base
     dir = File.dirname(File.expand_path(__FILE__))
 
-    set :views,  "#{dir}/views"
-    set :public, "#{dir}/public"
-    set :static, true
+    set :views,         "#{dir}/views"
+    set :public_folder, "#{dir}/public"
+    set :static,        true
     
     get '/', :provides => 'html' do
       @checks   = Diagnostic.checks
