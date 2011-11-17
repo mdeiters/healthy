@@ -15,7 +15,7 @@ module Healthy
         checks.each do |check| 
           case check.status
           when :warn
-            status = warn
+            status = :warn
           when :fail
             return :fail
           end
