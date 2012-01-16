@@ -45,4 +45,5 @@ Copyright (c) 2011 Matthew Deiters. See LICENSE.txt for
 further details.
 
 [![endorse](http://localhost:3000/images/endorseButton3.png)](http://coderwall.com/mdeiters)
+[![Build Status](https://secure.travis-ci.org/thegoleffect/nitrous.png)](http://travis-ci.org/thegoleffect/nitrous)
 
