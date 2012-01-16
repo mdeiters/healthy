@@ -1,5 +1,5 @@
-= healthy
 
+= healthy
 Coming Soon
 
 == Mounting the application in rails 2.3.*
@@ -44,4 +44,4 @@ Add each diagnostics check to the to
 Copyright (c) 2011 Matthew Deiters. See LICENSE.txt for
 further details.
 
-http://coderwall.com/mdeiters/endorse.png[http://coderwall.com/mdeiters]
+[http://coderwall.com/mdeiters/endorse.png][http://coderwall.com/mdeiters]
