@@ -44,4 +44,4 @@ Add each diagnostics check to the to
 Copyright (c) 2011 Matthew Deiters. See LICENSE.txt for
 further details.
 
-{http://coderwall.com/mdeiters/endorse.png}[http://coderwall.com/mdeiters]
+http://coderwall.com/mdeiters/endorse.png[http://coderwall.com/mdeiters]
