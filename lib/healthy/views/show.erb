@@ -44,7 +44,7 @@
       <%= Healthy::ServerIdentity.identity %>
       <a href='#headers' onclick="$('#headers').toggle(); return false;">(show headers)</a>
     </h4>
-    <div id='headers'><h6><%= request.env.keys.sort.collect{|n| "#{n} = #{request.env[n]}" }.join('<br>') %></h6></div>
+    <div id='headers'><h6><%= request.env.keys.map(&:to_s).sort.collect{|n| "#{n} = #{request.env[n]}" }.join('<br>') %></h6></div>
     </div>
   </body>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script> 
